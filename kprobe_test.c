@@ -3,6 +3,8 @@
 #include<linux/kprobes.h>
 #include<linux/ptrace.h>
 
+MODULE_LICENSE("GPL");
+
 static int pre(struct kprobe *kp,struct pt_regs *regs)
 {
 	printk(KERN_INFO "[FOOK]PRE FUNCTION\n");
