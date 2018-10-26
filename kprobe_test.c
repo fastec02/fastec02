@@ -1,5 +1,5 @@
 #include<linux/module.h>
-#include<linux/kerne.h>
+#include<linux/kernel.h>
 #include<linux/kprobes.h>
 #include<linux/ptrace.h>
 
@@ -12,7 +12,7 @@ static int pre(struct kprobe *kp,struct pt_regs *regs)
 static struct kprobe kp =
 {
 	.symbol_name = "sys_open",
-	.pre_handle = pre,
+	.pre_handler = pre,
 	.post_handler = NULL,
 	.fault_handler = NULL,
 };
@@ -20,7 +20,7 @@ static struct kprobe kp =
 int kprobe_init(void)
 {
 	printk(KERN_INFO "[INIT]---------------------\n");
-	printk(KERN_INFO "register_kprobe:{%d}\n",register_kperobe(&kp));
+	printk(KERN_INFO "register_kprobe:{%d}\n",register_kprobe(&kp));
 	return 0;
 }
 
