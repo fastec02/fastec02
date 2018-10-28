@@ -1,5 +1,5 @@
 #!/bin/sh
 
 git add *
-git commit -m "update $(date)"
+git commit -a -m "update $(date)"
 git push
