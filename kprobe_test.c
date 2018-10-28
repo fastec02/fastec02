@@ -5,9 +5,22 @@
 #define TARGET "_do_fork"
 MODULE_LICENSE("GPL");
 
+static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs);
+
+static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs)
+{
+	printk(KERN_INFO "----[MESG] %s\n",msg);
+	printk(KERN_INFO "----[INFO]p->addr = 0x%p\n",kp->addr);
+	printk(KERN_INFO "----[INFO]ip      = %lx\n",regs->ip);
+	printk(KERN_INFO "----[INFO]<RAX>   = 0x%lx\n",regs->ax);
+	printk(KERN_INFO "----[INFO]<RBX>   = 0x%lx\n",regs->bx);
+	printk(KERN_INFO "----[INFO]<RCX>   = 0x%lx\n",regs->cx);
+	printk(KERN_INFO "----[INFO]<RDX>   = 0x%lx\n",regs->dx);
+}
 static int pre(struct kprobe *kp,struct pt_regs *regs)
 {
-	printk(KERN_INFO "[FOOK]PRE FUNCTION\n");
+	printk(KERN_INFO "[FOOK]PRE FUNCTION '%s'\n",TARGET);
+	printk_regs("PRE",kp,regs);
 	return 0;
 }
 
