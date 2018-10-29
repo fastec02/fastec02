@@ -1,5 +1,6 @@
 #include<linux/sched.h>
 #include<linux/rwlock.h>
+
 static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs);
 static void printk_thread(struct kprobe *kp,struct pt_regs *regs);
 
@@ -18,15 +19,17 @@ static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs)
 
 static void printk_thread(struct kprobe *kp,struct pt_regs *regs)
 {
-	struct task_struct *task;
+	static struct task_struct *task;
+	static rwlock_t myrwlock;
 
-	struct thread_info *current_thread = task_thread_info(task);
+	rwlock_init(&myrwlock);
 
+	read_lock(&myrwlock);
 	printk(KERN_INFO "--[THREAD_INFO]\n");
 	printk(KERN_INFO "----[INFO]<PID>	= %x\n",task->pid);
 	printk(KERN_INFO "----[INFO]<PTR>	= %lx\n",task->thread_info);
 	printk(KERN_INFO "----[INFO]<STATUS>	= %lx\n",task->thread_info.status);
 	printk(KERN_INFO "----[INFO]<FLAGS>	= %lx\n",task->thread_info.flags);
-
+	read_unlock(&myrwlock);
 }
 
