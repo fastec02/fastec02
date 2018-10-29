@@ -1,7 +1,8 @@
 #include<linux/sched.h>
-
+#include<linux/rwlock.h>
 static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs);
 static void printk_thread(struct kprobe *kp,struct pt_regs *regs);
+
 
 static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs)
 {
@@ -18,16 +19,12 @@ static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs)
 static void printk_thread(struct kprobe *kp,struct pt_regs *regs)
 {
 	struct task_struct *task;
-	read_lock(&tasklist_lock);
-	for_each_process(task)
-	{
-		printk(KERN_INFO "--[THREAD_INFO]\n");
-		printk(KERN_INFO "----[INFO]<PID>	= %x\n",task->pid);
-		printk(KERN_INFO "----[INFO]<PTR>	= %lx\n",task->thread_info);
-		printk(KERN_INFO "----[INFO]<STATUS>	= %lx\n",task->thread_info.status);
-		printk(KERN_INFO "----[INFO]<FLAGS>	= %lx\n",task->thread_info.flags);
 
-	}
-	read_unlock(&tasklist_lock);
+	printk(KERN_INFO "--[THREAD_INFO]\n");
+	printk(KERN_INFO "----[INFO]<PID>	= %x\n",task->pid);
+	printk(KERN_INFO "----[INFO]<PTR>	= %lx\n",task->thread_info);
+	printk(KERN_INFO "----[INFO]<STATUS>	= %lx\n",task->thread_info.status);
+	printk(KERN_INFO "----[INFO]<FLAGS>	= %lx\n",task->thread_info.flags);
+
 }
 
