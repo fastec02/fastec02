@@ -20,6 +20,8 @@ static void printk_thread(struct kprobe *kp,struct pt_regs *regs)
 {
 	struct task_struct *task;
 
+	struct thread_info *current_thread = task_thread_info(task);
+
 	printk(KERN_INFO "--[THREAD_INFO]\n");
 	printk(KERN_INFO "----[INFO]<PID>	= %x\n",task->pid);
 	printk(KERN_INFO "----[INFO]<PTR>	= %lx\n",task->thread_info);
