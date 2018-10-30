@@ -8,8 +8,8 @@ MODULE_LICENSE("GPL");
 
 static int pre(struct kprobe *kp,struct pt_regs *regs)
 {
-	printk(KERN_INFO "[FOOK]PRE FUNCTION '%s'\n",TARGET);
-	printk_regs("PRE",kp,regs);
+	//printk(KERN_INFO "[FOOK]PRE FUNCTION '%s'\n",TARGET);
+	//printk_regs("PRE",kp,regs);
 	printk_thread(kp,regs);
 	return 0;
 }
