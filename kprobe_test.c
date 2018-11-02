@@ -10,7 +10,8 @@ static int pre(struct kprobe *kp,struct pt_regs *regs)
 {
 	printk(KERN_INFO "[FOOK]PRE FUNCTION '%s'\n",TARGET);
 	printk_regs("PRE",kp,regs);
-	//printk_thread(kp,regs);
+	printk_thread(kp,regs);
+	//find_task(1);
 	return 0;
 }
 
