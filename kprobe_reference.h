@@ -11,8 +11,8 @@ static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs)
 {
 	printk(KERN_ALERT "--[KERNEL REGS]\n");
         printk(KERN_INFO "----[MESG] %s\n",msg);
-        printk(KERN_INFO "----[INFO]kp->addr	= 0x%p\n",kp->addr);
-        printk(KERN_INFO "----[INFO]ip   	= 0x%lx\n",regs->ip-1);
+        printk(KERN_INFO "----[INFO]<THREAD>	= 0x%p\n",kp->addr);
+        printk(KERN_INFO "----[INFO]<IP>   	= 0x%lx\n",regs->ip-1);
         printk(KERN_INFO "----[INFO]<RAX>   	= 0x%lx\n",regs->ax);
         printk(KERN_INFO "----[INFO]<RBX>	= 0x%lx\n",regs->bx);
         printk(KERN_INFO "----[INFO]<RCX>	= 0x%lx\n",regs->cx);
@@ -37,6 +37,7 @@ static void printk_thread(const char* msg,struct kprobe *kp,struct pt_regs *regs
 			printk(KERN_INFO "----[INFO]<STATUS>	= 0x%lx\n",task->thread_info.status);
 			printk(KERN_INFO "----[INFO]<FLAGS>	= 0x%lx\n",task->thread_info.flags);
 			printk(KERN_INFO "----[INFO]<SP>	= 0x%lx\n",task->thread.sp);
+
 		}
 	}
 	rcu_read_unlock();
