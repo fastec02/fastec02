@@ -17,11 +17,23 @@ static int pre(struct kprobe *kp,struct pt_regs *regs)
 	return 0;
 }
 
+static void post(struct kprobe *kp,struct pt_regs *regs,unsigned long flags)
+{
+        //printk(KERN_INFO "*\n");
+        //printk(KERN_INFO "[FOOK]PRE FUNCTION '%s'\n",TARGET);
+        //printk_thread("POST",kp,regs);
+        //printk_regs("POST",kp,regs);
+        //printk(KERN_INFO "*\n");
+        //find_task(1);
+        return 0;
+}
+
+
 static struct kprobe kp =
 {
 	.symbol_name = TARGET,
 	.pre_handler = pre,
-	.post_handler = NULL,
+	.post_handler = post,
 	.fault_handler = NULL,
 };
 
