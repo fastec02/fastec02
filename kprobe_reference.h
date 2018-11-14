@@ -5,7 +5,7 @@
 
 static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs);
 static void printk_thread(const char* msg,struct kprobe *kp,struct pt_regs *regs);
-struct task_struct *find_task(pid_t pid);
+static struct task_struct *find_task(pid_t pid);
 
 
 
@@ -16,10 +16,10 @@ static void printk_regs(const char* msg,struct kprobe *kp,struct pt_regs *regs)
         printk(KERN_INFO "----[MESG] %s\n",msg);
         printk(KERN_INFO "----[INFO]<THREAD>		= 0x%p\n",kp->addr);
         printk(KERN_INFO "----[INFO]<IP>   		= 0x%lx\n",regs->ip);
-        //printk(KERN_INFO "----[INFO]<RAX>   		= 0x%lx\n",regs->ax);
-        //printk(KERN_INFO "----[INFO]<RBX>		= 0x%lx\n",regs->bx);
-        //printk(KERN_INFO "----[INFO]<RCX>		= 0x%lx\n",regs->cx);
-        //printk(KERN_INFO "----[INFO]<RDX>		= 0x%lx\n",regs->dx);
+        printk(KERN_INFO "----[INFO]<RAX>   		= 0x%lx\n",regs->ax);
+        printk(KERN_INFO "----[INFO]<RBX>		= 0x%lx\n",regs->bx);
+        printk(KERN_INFO "----[INFO]<RCX>		= 0x%lx\n",regs->cx);
+        printk(KERN_INFO "----[INFO]<RDX>		= 0x%lx\n",regs->dx);
 	printk(KERN_INFO "----[INFO]<SP>   		= 0x%lx\n",regs->sp);
 	printk(KERN_INFO "----[INFO]<BP>    		= 0x%lx\n",regs->bp);
 
@@ -42,8 +42,8 @@ static void printk_thread(const char* msg,struct kprobe *kp,struct pt_regs *regs
 			printk(KERN_INFO "----[INFO]<THREAD>		= 0x%lx\n",task->thread);
 			printk(KERN_INFO "----[INFO]<PID>		= %d\n",task->pid);
 			printk(KERN_INFO "----[INFO]<PTR>		= 0x%lx\n",task->thread_info);
-			//printk(KERN_INFO "----[INFO]<STATUS>		= 0x%lx\n",task->thread_info.status);
-			//printk(KERN_INFO "----[INFO]<FLAGS>		= 0x%lx\n",task->thread_info.flags);
+			printk(KERN_INFO "----[INFO]<STATUS>		= 0x%lx\n",task->thread_info.status);
+			printk(KERN_INFO "----[INFO]<FLAGS>		= 0x%lx\n",task->thread_info.flags);
 			printk(KERN_INFO "----[INFO]<SP>		= 0x%lx\n",task->thread.sp);
 
 			printk(KERN_INFO "----[INFO]<&SP>		= 0x%lx\n",&task->thread.sp);

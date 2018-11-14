@@ -3,7 +3,7 @@
 #include<linux/kprobes.h>
 #include<linux/ptrace.h>
 #include "kprobe_reference.h"
-#define TARGET "sys_getdents"
+#define TARGET "sys_uname"
 MODULE_LICENSE("GPL");
 
 static int pre(struct kprobe *kp,struct pt_regs *regs)
