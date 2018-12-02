@@ -3,7 +3,7 @@
 #include<linux/kprobes.h>
 #include<linux/ptrace.h>
 #include "kprobe_reference.h"
-#define TARGET_SYMBOL "sys_execve"
+#define TARGET_SYMBOL "sys_getdents"
 #define TARGET_ADDR 0xffffffffaa08b5b0
 MODULE_LICENSE("GPL");
 
@@ -13,17 +13,18 @@ static int pre(struct kprobe *kp,struct pt_regs *regs)
 	printk(KERN_INFO "[FOOK]PRE FUNCTION '%s'\n",TARGET_SYMBOL);
 	printk_thread("PRE",kp,regs);
 	printk_regs("PRE",kp,regs);
+	printk_sp("SP");
 	printk(KERN_INFO "+\n");
 	return 0;
 }
 
 static void post(struct kprobe *kp,struct pt_regs *regs,unsigned long flags)
 {
-        printk(KERN_INFO "*\n");
+        //printk(KERN_INFO "*\n");
         //printk(KERN_INFO "[FOOK]POST FUNCTION '%s'\n",TARGET_SYMBOL);
         //printk_thread("POST",kp,regs);
         //printk_regs("POST",kp,regs);
-        printk(KERN_INFO "*\n");
+        //printk(KERN_INFO "*\n");
 }
 
 static int fault(struct kprobe *kp,struct pt_regs *regs,int tranpnr)
